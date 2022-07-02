@@ -185,12 +185,12 @@ int main(){
     double val;
     //verificar corretude do polinomio
     for (int x = 0; x <= 30; x++){
-        val = evaluate_newton_polynomial(x, xarr, length, coefs);
         if (x % 5 == 0){
-            printf("------------------------------\n");
+            val = evaluate_newton_polynomial(x, xarr, length, coefs);
+            print_evaluation(x, val, "F");
         }
-        print_evaluation(x, val, "F");
     }
+    printf("------------------------------\n");
 
     //experimentos com n variando
     double area;
@@ -200,33 +200,35 @@ int main(){
         printf("A area obtida foi %.4lf.\n", area);
         h = h/2;
     }
+    printf("------------------------------\n");
     h = 5;
     for (int i = 0; i < 10; i++){
         area = integrate_trapezoidal(0.0, 30.0, h, length, coefs, xarr);
         printf("A area obtida foi %.4lf.\n", area);
         h = h/2;
     }
-    for (int i = 1; i <= 100; i++){
-        printf("%lf\n", randomUniform(i));
-    }
+    printf("------------------------------\n");
     int N = 10;
     for (int i = 0; i < 7; i++){
         double seno = integrateSin(N);
         printf("Integral de seno com n = %d: %lf\n", N, seno);
         N = N*10;
     }
+    printf("------------------------------\n");
     N = 10;
     for (int i = 0; i < 7; i++){
         double x3 = integrateXcube(N);
         printf("Integral de x^3 com n = %d: %lf\n", N, x3);
         N = N*10;
     }
+    printf("------------------------------\n");
     N = 10;
     for (int i = 0; i < 7; i++){
         double expintegral = integrateExp0_1(N) + integrateExpln(N);
         printf("Integral de e^x com n = %d: %lf\n", N, expintegral);
         N = N*10;
     }
+    printf("------------------------------\n");
     N = 10;
     for (int i = 0; i < 7; i++){
         double piaprox = approximatePi(N);
