@@ -193,46 +193,82 @@ int main(){
     printf("------------------------------\n");
 
     //experimentos com n variando
-    double area;
+    double area = 0;
+    double prev_area = 0;
     double h = 5;
-    for (int i = 0; i < 5; i++){
+    for (int i = 0; i < 20; i++){
+        prev_area = area;
         area = integrate_simpson(0.0, 30.0, 2*h, length, coefs, xarr);
         printf("A area obtida foi %.4lf.\n", area);
         h = h/2;
+        if (fabs(prev_area - area) < 0.000001){
+            break;
+        }
     }
     printf("------------------------------\n");
+    prev_area = 0;
+    area = 0;
     h = 5;
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < 20; i++){
+        prev_area = area;
         area = integrate_trapezoidal(0.0, 30.0, h, length, coefs, xarr);
         printf("A area obtida foi %.4lf.\n", area);
         h = h/2;
+
+        if (fabs(prev_area - area) < 0.0000001){
+            break;
+        }
     }
     printf("------------------------------\n");
-    int N = 10;
-    for (int i = 0; i < 7; i++){
-        double seno = integrateSin(N);
-        printf("Integral de seno com n = %d: %lf\n", N, seno);
+    long long N = 10;
+    prev_area = 0;
+    double seno = 0;
+    for (int i = 0; i < 8; i++){
+        prev_area = seno;
+        seno = integrateSin(N);
+        printf("Integral de seno com n = %lld: %lf\n", N, seno);
         N = N*10;
-    }
-    printf("------------------------------\n");
-    N = 10;
-    for (int i = 0; i < 7; i++){
-        double x3 = integrateXcube(N);
-        printf("Integral de x^3 com n = %d: %lf\n", N, x3);
-        N = N*10;
-    }
-    printf("------------------------------\n");
-    N = 10;
-    for (int i = 0; i < 7; i++){
-        double expintegral = integrateExp0_1(N) + integrateExpln(N);
-        printf("Integral de e^x com n = %d: %lf\n", N, expintegral);
-        N = N*10;
+        if (fabs(prev_area - seno) < 0.00001*seno){
+            break;
+        }
     }
     printf("------------------------------\n");
     N = 10;
-    for (int i = 0; i < 7; i++){
-        double piaprox = approximatePi(N);
-        printf("Aproximacao de pi com n = %d: %lf\n", N, piaprox);
+    prev_area = 0;
+    double x3 = 0;
+    for (int i = 0; i < 8; i++){
+        prev_area = x3;
+        x3 = integrateXcube(N);
+        printf("Integral de x^3 com n = %lld: %lf\n", N, x3);
         N = N*10;
+        if (fabs(prev_area - x3) < 0.00001*x3){
+            break;
+        }
+    }
+    printf("------------------------------\n");
+    prev_area = 0;
+    double expintegral = 0;
+    N = 10;
+    for (int i = 0; i < 8; i++){
+        prev_area = expintegral;
+        expintegral = integrateExp0_1(N) + integrateExpln(N);
+        printf("Integral de e^x com n = %lld: %lf\n", N, expintegral);
+        N = N*10;
+        if (fabs(prev_area - expintegral) < 0.00001*expintegral){
+            break;
+        }
+    }
+    printf("------------------------------\n");
+    N = 10;
+    prev_area = 0;
+    double piaprox = 0;
+    for (int i = 0; i < 8; i++){
+        prev_area = piaprox;
+        piaprox = approximatePi(N);
+        printf("Aproximacao de pi com n = %lld: %lf\n", N, piaprox);
+        N = N*10;
+        if (fabs(prev_area - piaprox) < 0.00001*piaprox){
+            break;
+        }
     }
 }
